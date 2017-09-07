@@ -1,0 +1,4 @@
+{
+    "presets": [["es2015", {"module": false}], "stage-0", "react"],
+    "plugins": []
+}

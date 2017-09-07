@@ -1,0 +1,30 @@
+{
+    "name": "charts",
+    "common": {
+        "title": "DC",
+        "footer": "&copy; 2017.",
+        "home": "DC",
+        "homeUrl": "/doc"
+    },
+    "pages": [
+        {
+            "name": "charts",
+            "title": "图表",
+            "banner": {
+                "title": "图表",
+                "description": "图表"
+            },
+            "content": {
+                "sidebar": true,
+                "multi": true,
+                "index": "./src/lib/charts/README.md",
+                "pages": [
+                    {
+                        "name": "raw",
+                        "content": "./src/lib/charts/raw.js"
+                    }
+                ]
+            }
+        }
+    ]
+}
