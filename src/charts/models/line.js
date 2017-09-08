@@ -22,7 +22,7 @@ raw.models.set(LINE, () => {
     // .style(style(LINE))
     .format(PERCENTILE, TWO_DECIMAL, THOUSANDS)
     .accessor((v, series, index) => {
-      series[index].push(v);
+      series[index].value.push(v);
     })
     .required(1)
     .multiple(true);
@@ -32,8 +32,11 @@ raw.models.set(LINE, () => {
     const { data = [], meta = [] } = obj;
     const xAxis = [];
     const series = [];
-    YAxis.value.forEach(() => {
-      series.push([]);
+    YAxis.value.forEach(({ name }) => {
+      series.push({
+        name,
+        value: []
+      });
     });
     data.forEach((d) => {
       const x = XAxis(d);

@@ -13,6 +13,9 @@ raw
     if (canvas) {
       const { name } = config;
       const option = {
+        title: {
+          text: name
+        },
         toolbox: {
           feature: {
             dataZoom: {
@@ -44,12 +47,12 @@ raw
             type: 'value'
           }
         ],
-        series: series.map(data => ({
+        series: series.map(({ name, value }) => ({
           name,
+          data: value,
           type: LINE.toLowerCase(),
           stack: '总量',
           areaStyle: { normal: {} },
-          data
         })),
       };
       init(canvas).setOption(option);
