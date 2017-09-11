@@ -1,7 +1,6 @@
 import React from "react";
 import { render } from 'react-dom';
-import "./src/charts/";
-import Chart from "./src/charts/chart";
+import Chart from  "./src/";
 import './demo.less';
 
 const configLINE = {

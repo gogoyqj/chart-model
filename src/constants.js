@@ -43,8 +43,7 @@ export const formatNumber = (v, fs = '') => {
   if (!formats.length) return v;
   formats.forEach((f) => {
     if (f === PERCENTILE) { // 百分比
-      v = `${String('145')
-        .replace(/(([0-9]{0,2})(\.)([0-9]{2}))|([0-9]{2}$)/g, (mat, m0, m00, m01, m02, m1) => (m0 ? `${m01}${m00}${m02}` : `.${m1}`))}%`;
+      v = `${v * 100}%`;
       if (v[0] === '.') v = `0${v}`;
     } else if (f === TWO_DECIMAL) { // 2 位小数
       v = String(v).replace(/(\.[0-9]{2})[0-9]*/g, (mat, n) => n);

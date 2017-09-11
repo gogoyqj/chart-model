@@ -17,11 +17,11 @@
             "content": {
                 "sidebar": true,
                 "multi": true,
-                "index": "./src/lib/charts/README.md",
+                "index": "./src/README.md",
                 "pages": [
                     {
                         "name": "raw",
-                        "content": "./src/lib/charts/raw.js"
+                        "content": "./src/raw.js"
                     }
                 ]
             }
