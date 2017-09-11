@@ -83,6 +83,8 @@ export default class Demo extends React.Component {
     return (
       <div>
         <Chart config={configLINE} data={data} />
+        <Chart config={{ ...configLINE, config: { style: ['area'] } }} data={data} />
+        <Chart config={{ ...configLINE, chart: 'BAR' }} data={data} />
         <Chart config={configPIE} data={data} />
         <Chart config={configBLOCK} data={data} />
       </div>

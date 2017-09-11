@@ -185,7 +185,7 @@ export const getChartTypes = () => {
 export const createModel = (chart = 'LINE', config = {}) => {
   const modelFactory = raw.models.get(chart);
   if (modelFactory) {
-    const model = modelFactory();
+    const model = modelFactory(config);
     model.dimensions().each((v, key) => {
       const { dimension = {} } = config;
       if (key in dimension) {
@@ -195,11 +195,6 @@ export const createModel = (chart = 'LINE', config = {}) => {
     return model;
   }
 };
-
-export const createChart = (config) => {}
-
-window.raw = raw;
-window.createModel = createModel;
 
 /**
  * @description 创建一个图表
@@ -221,7 +216,7 @@ raw.chart = function(id) {
     const model = createModel(info.model || config.chart, config);
     const draw = config.draw || info.draw; // 如果带入了新的 draw 方法
     if (model) {
-      return draw.call(this, canvas, model(data), config);
+      return draw.call(this, canvas, model(data, config), config);
     } else {
       console.warn(`${config.chart} not defined`);
       return null;
@@ -348,6 +343,21 @@ raw.model = function () {
    */
   model.clear = function() {
     dimensions.values().forEach(function (d){ d.clear()});
+  }
+
+  var config = {};
+
+  /**
+   * @description 扩展其他配置
+   * @method model.config
+   */
+  model.config = function(c) {
+    if (arguments.length === 0) return config;
+    config = {
+      ...config,
+      ...c
+    };
+    return model;
   }
 
   return model;

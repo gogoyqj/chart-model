@@ -6,9 +6,10 @@ export const DIMENSION = 'DIMENSION';
 export const JSX = 'JSX';
 export const charts = {
   LINE: 'LINE',
+  BAR: 'BAR',
   TABLE: 'TABLE',
   PIE: 'PIE',
-  METRIC_BLOCK: 'METRIC BLOCK'
+  METRIC_BLOCK: 'METRIC BLOCK',
 };
 export const style = () => ({
   op: Object.keys(MP),
@@ -44,7 +45,6 @@ export const formatNumber = (v, fs = '') => {
   formats.forEach((f) => {
     if (f === PERCENTILE) { // 百分比
       v = `${v * 100}%`;
-      if (v[0] === '.') v = `0${v}`;
     } else if (f === TWO_DECIMAL) { // 2 位小数
       v = String(v).replace(/(\.[0-9]{2})[0-9]*/g, (mat, n) => n);
     } else if (f === THOUSANDS || f === 'QUARTILE') { // 千分位

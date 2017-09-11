@@ -7,8 +7,12 @@ import { PERCENTILE, TWO_DECIMAL, THOUSANDS, METRIC, DIMENSION, charts } from '.
 
 const { LINE } = charts;
 
-raw.models.set(LINE, () => {
+raw.models.set(LINE, (config) => {
   const model = raw.model();
+
+  model.config({
+    style: ['area', 'stack']
+  });
 
   // 定义 x 轴，维度：比如 日期
   const XAxis = model.dimension('XAxis')
@@ -29,12 +33,17 @@ raw.models.set(LINE, () => {
 
   // 格式化数据
   model.map((obj) => {
+    const style = config.config && config.config.style || [];
+    const area = style.indexOf('area') !== -1; // 堆叠
+    const stack = style.indexOf('stack') !== -1; // 堆叠
     const { data = [], meta = [] } = obj;
     const xAxis = [];
     const series = [];
     YAxis.value.forEach(({ name }) => {
       series.push({
         name,
+        area,
+        stack: stack ? '总量' : false, // 折线的堆叠，都在一起
         value: []
       });
     });
