@@ -18,4 +18,4 @@ import 'echarts/lib/component/markArea';
  * @param {element} ele 画布元素
  * @return {object} echarts 实例
  */
-export const init = ele => echarts.init(ele, 'wonderland');
+export const init = ele => echarts.init(ele, 'custom');

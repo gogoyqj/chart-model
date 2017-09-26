@@ -14,7 +14,7 @@ export const charts = {
 export const style = () => ({
   op: Object.keys(MP),
   style: {
-    color: ['red', 'yellow']
+    color: ['red', 'green']
   }
 });
 

@@ -7,17 +7,19 @@ import { init } from './init';
 
 const { LINE, BAR } = charts;
 
-const DRAW = (canvas, { xAxis, yAxis, series }, config, ModelName = LINE) => {
+const DRAW = (canvas, { xAxis, yAxis, series, hideXY = false }, config = {}, ModelName = LINE) => {
   const xy = {
     xAxis: [
       {
         type: 'category',
+        show: !hideXY,
         boundaryGap: ModelName !== LINE,
         data: xAxis || yAxis,
       }
     ],
     yAxis: [
       {
+        show: !hideXY,
         type: 'value'
       }
     ],

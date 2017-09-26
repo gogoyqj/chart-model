@@ -1,6 +1,6 @@
 import './pie';
 import './line';
-import './table';
+// import './table';
 import './block';
 import './bar';
 

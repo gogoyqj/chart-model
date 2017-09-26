@@ -99,20 +99,6 @@ $d3.nest = function() {
   return nest;
 };
 
-$d3.range = function(start, stop, step) {
-  if (arguments.length < 3) {
-    step = 1;
-    if (arguments.length < 2) {
-      stop = start;
-      start = 0;
-    }
-  }
-  if ((stop - start) / step === Infinity) throw new Error("infinite range");
-  var range = [], k = d3_range_integerScale(Math.abs(step)), i = -1, j;
-  start *= k, stop *= k, step *= k;
-  if (step < 0) while ((j = start + step * ++i) > stop) range.push(j / k); else while ((j = start + step * ++i) < stop) range.push(j / k);
-  return range;
-};
 $d3.rebind = function(target, source) {
   var i = 1, n = arguments.length, method;
   while (++i < n) target[method = arguments[i]] = d3_rebind(target, source, source[method]);
@@ -259,7 +245,7 @@ raw.model = function () {
 
   var dimensions = new Map();
 
-  var model = function (rawData) {
+  var model = function (rawData, config) {
     if (!rawData) return;
     const meta = rawData.meta || rawData[0];
     const data = rawData.meta ? rawData.data : rawData.slice(1);
@@ -276,7 +262,7 @@ raw.model = function () {
     return map.call(this, {
       meta,
       data
-    });
+    }, config);
   }
 
   function map(data) {

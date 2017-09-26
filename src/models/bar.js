@@ -11,10 +11,13 @@ raw.models.set(BAR, (config) => {
   const lineModel = raw.models.get(LINE);
   const model = lineModel(config);
   const lineMap = model.map();
+  model.dimensions().get('XAxis')
+    .required([1, 2])
+    .multiple(true);
   model.config({
-    style: ['stack', 'horizontal']
+    style: ['stack', 'horizontal', 'hideXY']
   });
-  const style = config.config && config.config.style || [];
+  const style = (config && config.style) || [];
   const stack = style.indexOf('stack') !== -1; // 堆叠
   const horizontal = style.indexOf('horizontal') !== -1; // 水平
   model.map((data) => {

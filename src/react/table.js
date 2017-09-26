@@ -4,7 +4,7 @@
 import React from 'react';
 import { raw } from '../raw';
 import { charts, JSX } from '../constants';
-import { Table } from '../../../features/common/';
+import { Table } from '../../features/common/';
 
 const { TABLE } = charts;
 
@@ -14,8 +14,9 @@ raw
   .category(JSX)
   .draw((canvas, data, config) => {
     const conf = {
-      name: config.name || '',
+      ...config,
       config: {
+        destroy: true,
         columns: data.columns.map(({ style, title, data: key }) => {
           const col = {
             title,

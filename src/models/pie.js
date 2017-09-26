@@ -54,7 +54,7 @@ raw.models.set(PIE, () => {
     if (drawByDimension.length) {
       data.forEach((d) => {
         const dimensionKey = dimension(d);
-        mp[dimensionKey] = (mp[dimensionKey] || 0) + arc(d)[0];
+        mp[dimensionKey] = (Number(mp[dimensionKey]) || 0) + (Number(arc(d)[0]) || 0);
       });
       Object.keys(mp).forEach(name => newData.push({
         name,

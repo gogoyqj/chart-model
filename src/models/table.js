@@ -39,6 +39,7 @@ raw.models.set(TABLE, () => {
 
   model.map((d) => {
     const { value } = dimension;
+    const metrics = value.filter(({ type }) => type === METRIC);
     const { data = [] } = d;
     const columns = value.map((o) => {
       const { style: s, format = '', items = [], key, label = key, name, alias } = o;
@@ -55,9 +56,28 @@ raw.models.set(TABLE, () => {
       if (width && width.value) newObj.style = { width };
       return newObj;
     });
+    let newData = data;
+    // 只有一个指标，归并
+    if (metrics.length === 1) {
+      newData = [];
+      const metricIndex = value.indexOf(metrics[0]);
+      const metricRowIndex = metrics[0].key;
+      const MP = {};
+      data.forEach((row) => {
+        const dKey = dimension(row)
+          .filter((v, index) => index !== metricIndex)
+          .join('@_@');
+        if (dKey in MP) {
+          MP[dKey][metricRowIndex] = (Number(MP[dKey][metricRowIndex]) || 0) + (Number(row[metricRowIndex]) || 0);
+        } else {
+          MP[dKey] = row;
+          newData.push(row);
+        }
+      });
+    }
     return {
       columns,
-      data: data.map(row => row.map((cell, index) => (columns[index] ? columns[index].render(cell) : cell)))
+      data: newData.map(row => row.map((cell, index) => (columns[index] ? columns[index].render(cell) : cell)))
     };
   });
 
